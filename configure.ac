@@ -19,6 +19,12 @@ AC_PATH_PROGS_FEATURE_CHECK([GSED], [gsed sed],
 	[AC_MSG_ERROR([GNU sed not found])])
 AC_SUBST([GSED], [$ac_cv_path_GSED])
 
+# Check if Ninja is installed
+AC_PATH_PROGS([NINJA], [ninja], [no])
+	AS_IF([test "x$NINJA" != xno],
+		[AC_SUBST([NINJA], [$NINJA])],
+		[AC_SUBST([NINJA], [no])])
+
 need_gcc_external_libraries="no"
 AC_CHECK_LIB(gmp, __gmpz_init, ,
         [need_gcc_external_libraries="yes"])
